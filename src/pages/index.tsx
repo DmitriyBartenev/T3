@@ -1,3 +1,4 @@
+import React from "react";
 import { type NextPage } from "next";
 import Image from "next/image";
 import { SignInButton, useUser } from "@clerk/nextjs";
@@ -15,6 +16,17 @@ dayjs.extend(relativeTime);
 const CreatePost = () => {
   const { user } = useUser();
 
+  const [input, setInput] = React.useState<string>("");
+
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput("");
+      ctx.posts.getAll.invalidate();
+    },
+  });
+
   if (!user) return null;
 
   return (
@@ -28,9 +40,13 @@ const CreatePost = () => {
       />
       <input
         type="text"
-        className="bg-transparent outline-none"
+        className="grow bg-transparent outline-none"
         placeholder="Type Some Text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        disabled={isPosting}
       />
+      <button onClick={() => mutate({ content: input })}>Post</button>
     </div>
   );
 };
@@ -71,7 +87,7 @@ const Feed = () => {
 
   return (
     <div className="flex flex-col">
-      {data?.map((fullPost) => (
+      {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
     </div>
