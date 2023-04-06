@@ -1,32 +1,26 @@
 import React from "react";
-import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
 import { type NextPage } from "next";
 import { SignInButton, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Spinner } from "~/components/Spinner";
 import { toast } from "react-hot-toast";
 import { PageLayout } from "~/components/Layout";
-
-dayjs.extend(relativeTime);
+import { PostView } from "~/components/PostView";
 
 const CreatePost = () => {
   const { user } = useUser();
 
-  const [input, setInput] = React.useState<string>("");
+  const [input, setInput] = React.useState("");
 
   const ctx = api.useContext();
 
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
       setInput("");
-      ctx.posts.getAll.invalidate();
+      void ctx.posts.getAll.invalidate();
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
@@ -50,9 +44,9 @@ const CreatePost = () => {
         className="rounded-full"
       />
       <input
-        type="text"
+        placeholder="Type some emojis!"
         className="grow bg-transparent outline-none"
-        placeholder="Type some emojis"
+        type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
@@ -77,41 +71,15 @@ const CreatePost = () => {
   );
 };
 
-type PostWithUser = RouterOutputs["posts"]["getAll"][number];
-
-const PostView = (props: PostWithUser) => {
-  const { post, author } = props;
-
-  return (
-    <div key={post.id} className="border-slate-40 flex gap-3 border-b p-4">
-      <Image
-        src={author.profileImageUrl}
-        alt="Profile"
-        className="h-14 w-14 rounded-full"
-        width={56}
-        height={56}
-      />
-      <div className="flex flex-col">
-        <div className="flex gap-1 text-slate-300">
-          <Link href={`/@${author.username}`}>
-            <span>{`@${author.username} `}</span>
-          </Link>
-          <Link href={`/post/${post.id}`}>
-            <span className="font-thin">{` · ${dayjs(
-              post.createdAt
-            ).fromNow()}`}</span>
-          </Link>
-        </div>
-        <span>{post.content}</span>
-      </div>
-    </div>
-  );
-};
-
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
 
-  if (postsLoading) return <Spinner />;
+  if (postsLoading)
+    return (
+      <div className="flex grow">
+        <Spinner />
+      </div>
+    );
 
   if (!data) return <div>Something went wrong</div>;
 
