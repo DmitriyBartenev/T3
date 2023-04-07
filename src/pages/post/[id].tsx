@@ -1,8 +1,10 @@
 import React from "react";
 import Head from "next/head";
 import type { GetStaticProps, NextPage } from "next";
+
 import { api } from "~/utils/api";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+
 import { PageLayout } from "~/components/Layout";
 import { PostView } from "~/components/PostView";
 
@@ -11,7 +13,7 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
     id,
   });
 
-  if (!data) return <div>404</div>;
+  if (!data) return <div>Page not found</div>;
 
   return (
     <>

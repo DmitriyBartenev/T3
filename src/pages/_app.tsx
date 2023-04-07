@@ -10,7 +10,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps}>
       <Head>
-        <title>T3 Stack</title>
+        <title>T3</title>
         <meta name="description" content="T3 Stack Application" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

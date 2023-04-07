@@ -1,15 +1,14 @@
 import { clerkClient } from "@clerk/nextjs/server";
+import { Ratelimit } from "@upstash/ratelimit";
 import { TRPCError } from "@trpc/server";
+import { Redis } from "@upstash/redis";
 import { z } from "zod";
-
 import {
   createTRPCRouter,
   privateProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 
-import { Ratelimit } from "@upstash/ratelimit"; // for deno: see above
-import { Redis } from "@upstash/redis";
 import { filterUserForClient } from "~/server/helpers/filterUserForClient";
 import type { Post } from "@prisma/client";
 
@@ -33,7 +32,6 @@ const addUserDataToPosts = async (posts: Post[]) => {
       });
     }
     if (!author.username) {
-      // user the ExternalUsername
       if (!author.externalUsername) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -52,7 +50,6 @@ const addUserDataToPosts = async (posts: Post[]) => {
   });
 };
 
-// Create a new ratelimiter, that allows 3 requests per 1 minute
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(3, "1 m"),

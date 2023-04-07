@@ -1,37 +1,20 @@
 import React from "react";
 import Image from "next/image";
 import Head from "next/head";
-import type { GetStaticProps, NextPage } from "next";
 import { api } from "~/utils/api";
+import type { GetStaticProps, NextPage } from "next";
+
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+
 import { PageLayout } from "~/components/Layout";
-import { Spinner } from "~/components/Spinner";
-import { PostView } from "~/components/PostView";
-
-const ProfileFeed = (props: { userId: string }) => {
-  const { data, isLoading } = api.posts.getPostsByUserId.useQuery({
-    userId: props.userId,
-  });
-
-  if (isLoading) return <Spinner />;
-
-  if (!data || data.length === 0) return <div>User has not posted yet</div>;
-
-  return (
-    <div className="flex flex-col">
-      {data.map((fullPost) => (
-        <PostView key={fullPost.post.id} {...fullPost} />
-      ))}
-    </div>
-  );
-};
+import { ProfileFeed } from "~/components/ProfileFeed";
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data } = api.profile.getUserByUsername.useQuery({
     username,
   });
 
-  if (!data) return <div>404</div>;
+  if (!data) return <div>Page not found</div>;
 
   return (
     <>
