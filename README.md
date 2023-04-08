@@ -1,28 +1,36 @@
-# T3 App
+# T3 
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a Twitter clone built using the T3 Stack. The application allows users to post their favorite emojis and view posts left by other users. To start posting, users must first log in with their account.
 
-## What's next? How do I make an app with this?
+The T3 Stack includes tRPC and Prisma for server and database management. tRPC provides a type-safe and efficient way to define API endpoints and handle requests and responses between the client and server. Prisma, on the other hand, is an ORM (Object-Relational Mapping) tool that simplifies database management and makes it easy to work with databases using a type-safe API. Together, tRPC and Prisma allow for a fast and efficient web application with powerful database management capabilities.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Next.js is used for server-side rendering, TailwindCSS for styling, and React for front-end development.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Features
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- Login with your GitHub account
+- Post your favorite emojis
+- View posts left by other users
+- Rate limiting to prevent abuse
 
-## Learn More
+## Usage
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- Log in with your account
+- Leave your emoji
+- Click the "Post" button to post your favorite emoji
+- View posts left by other users on the homepage
+- Click on a user's username to view their posts
+- Click on a post itself to view info about it
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Future Improvements
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+While this Twitter clone is functional, there are several improvements that can be made to enhance its functionality and user experience. Some of these improvements include:
 
-## How do I deploy this?
+- Adding like and comment functionality to posts
+- Implementing search and filtering options for posts
+- Adding pagination to the homepage to allow users to view more posts
+- Enhancing the UI with more dynamic and interactive elements
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Conclusion
+
+This Twitter clone built using the T3 Stack provides a powerful and modern web application that allows users to post their favorite emojis and see posts left by other users. With its robust and scalable technology stack, this application is a great starting point for anyone looking to build their own web application using cutting-edge technologies.
