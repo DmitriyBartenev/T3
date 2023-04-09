@@ -4,7 +4,7 @@ This is a Twitter clone built using the T3 Stack. The application allows users t
 
 The T3 Stack includes tRPC and Prisma for server and database management. tRPC provides a type-safe and efficient way to define API endpoints and handle requests and responses between the client and server. Prisma, on the other hand, is an ORM (Object-Relational Mapping) tool that simplifies database management and makes it easy to work with databases using a type-safe API. Together, tRPC and Prisma allow for a fast and efficient web application with powerful database management capabilities.
 
-Next.js is used for server-side rendering, TailwindCSS for styling, and React for front-end development.
+Next.js is used for server-side rendering, TailwindCSS for styling and React for front-end development.
 
 ## Features
 
